@@ -1,102 +1,109 @@
+import environment.Environment;
+import command.Command;
+import commandCreator.CommandCreate;
+import commandCreator.CommandCreatorFactory;
+import parser.PreProcess;
+import parser.Parser;
+
 import java.util.Arrays;
 
+/**
+ * Run commands
+ */
 public class RunCommand {
 
     private PreProcess preProcessCommand = new PreProcess();
 
     /**
-     * choose command for running
-     * @param nameCommand name of command
-     * @param args command arguments
-     * @param environment process state
-     * @param printed print results or not
+     * Get command by name
+     *
+     * @param nameCommand name command
+     * @throws Exception command not found
      */
-    private Environment chooseCommand(String nameCommand, String[] args,
-                                      Environment environment, Command.Printed printed) throws Exception{
-        switch (nameCommand){
+    private Command chooseCommand(String nameCommand) throws Exception {
+        CommandCreatorFactory commandCreatorFactory = CommandCreate.getCommand(nameCommand);
+        return commandCreatorFactory.create();
+    }
 
-            case "pwd":
-                Pwd pwd = new Pwd();
-                environment = pwd.run(environment, args, printed);
-                break;
+    /**
+     * Add environment variable to table
+     *
+     * @param name  variable name
+     * @param value variable value
+     */
+    private void addVariable(String name, String value) {
+        name = Parser.removeSpacesString(name);
+        value = Parser.removeSpacesString(value);
+        System.out.println(name + " " + value);
+        preProcessCommand.setVariable(name, value);
+    }
 
-            case "echo":
-                Echo echoCommand = new Echo();
-                environment = echoCommand.run(environment, args, printed);
-                break;
+    /**
+     * Parse comman by "=" and set environment variable
+     *
+     * @param command command
+     * @return contains command "="
+     */
+    private boolean setEnvitonmentVariable(String command) {
+        if (command.indexOf("=") >= 0) {
+            String[] envVariable = Parser.parseEnvVariable(command);
 
-            case "cat":
-                Cat catCommand = new Cat();
-                environment = catCommand.run(environment, args, printed);
-                break;
+            assert (envVariable.length == 2);
 
-            case "wc":
-                Wc wcCommand = new Wc();
-                environment = wcCommand.run(environment, args, printed);
-                break;
-
-            case "exit":
-                System.exit(1);
-                break;
-
-            case "":
-                System.out.println("");
-                break;
-
-            default:
-                throw new Exception("command name not found");
+            addVariable(envVariable[0], envVariable[1]);
+            return true;
         }
-        return environment;
+        return false;
+    }
+
+    /**
+     * Parse line on commands
+     *
+     * @param command line with commands
+     * @return array with commands
+     */
+    private String[] parseCommand(String command) {
+        command = Parser.removeSpacesString(command);
+        String[] parseCommand = Parser.parseCommand(command);
+        parseCommand = Parser.removeSpacesFromArray(parseCommand);
+        return parseCommand;
     }
 
     /**
      * Get line from IO, run parsing, check that command arguments are quoted.
      * If full quoted term found, then replace all occurence of it by environment variable.
      * Commands like NAME = VALUE finished by pushing (NAME, VALUE) into table with environment variables
+     *
      * @param str : line from IO
      * @return result of commands
      */
-    public String run(String str) throws Exception{
+    public String run(String str) throws Exception {
         String[] commands = Parser.parseUsePipe(str);
 
         Environment environment = new Environment();
 
-        Command.Printed printed = Command.Printed.NO;
-
         int idx = 0;
-        for (String command : commands){
-            if (command.indexOf("=") >= 0){
-                String[] envVariable = Parser.parseEnvVariable(command);
+        for (String command : commands) {
 
-                assert (envVariable.length == 2);
-
-                String nameVariable = Parser.removeSpacesString(envVariable[0]),
-                        valueVariable = Parser.removeSpacesString(envVariable[1]);
-                System.out.println(nameVariable + " " + valueVariable);
-
-                preProcessCommand.setVariable(nameVariable, valueVariable);
+            if (setEnvitonmentVariable(command)) {
                 return "";
-
             }
+
             if (!Parser.checkWeakQuoting(command)) {
                 command = preProcessCommand.preprocess(command);
             }
 
-            command = Parser.removeSpacesString(command);
-            String[] parseCommand = Parser.parseCommand(command);
-            parseCommand = Parser.removeSpacesFromArray(parseCommand);
+            String[] parseCommand = parseCommand(command);
 
             if (parseCommand.length == 0) {
-                throw  new Exception("command not name");
-            }
-            if (idx == commands.length -1 ) {
-                printed = Command.Printed.YES;
+                throw new Exception("command isn't name");
             }
 
-            environment = chooseCommand(parseCommand[0], Arrays.copyOfRange(parseCommand, 1, parseCommand.length),
-                    environment, printed);
+            environment = chooseCommand(parseCommand[0]).
+                    run(environment, Arrays.copyOfRange(parseCommand, 1, parseCommand.length));
             idx++;
         }
+        environment.printState();
         String res = environment.getEnvString();
         environment.removeEnv();
         return res;

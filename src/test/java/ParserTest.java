@@ -1,10 +1,12 @@
+import parser.Parser;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 public class ParserTest {
 
     @Test
-    public void parserStringToCommands(){
+    public void parserStringToCommands() {
         String str = "pwd | echo";
         String[] command = Parser.parseUsePipe(str);
 
@@ -16,14 +18,14 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommandToArgs(){
-        String str =  " cat   ./build.gradle   ./settings.gradle  ";
+    public void parseCommandToArgs() {
+        String str = " cat   ./build.gradle   ./settings.gradle  ";
         String[] command = Parser.parseUsePipe(str);
 
         Assert.assertEquals(1, command.length);
 
         String[] args = Parser.parseCommand(command[0]);
-        for (String s: args){
+        for (String s : args) {
             System.out.println(s);
         }
         Assert.assertEquals(3, args.length);

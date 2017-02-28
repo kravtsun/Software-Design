@@ -1,3 +1,5 @@
+package parser;
+
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,89 +9,95 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Scanner;
 
-
+/**
+ * Saving enviroment variables and replace variable names on values
+ */
 public class PreProcess {
 
     /**
      * table with environment variable
      */
-    private HashMap<String, String> variable =  new HashMap<>();
+    private HashMap<String, String> variable = new HashMap<>();
 
-    private static final String nameFile = "./src/main/resourse/EnvVariable.txt";
-    private Scanner fileWithVariable;
+    private static final String nameFile = "./EnvVariable.txt";
 
-
-    public PreProcess(){
+    public PreProcess() {
+        File variablesFile = new File(nameFile);
         try {
-
-            fileWithVariable = new Scanner(new File(nameFile));
-            while (fileWithVariable.hasNext()){
-                variable.put(fileWithVariable.next(), fileWithVariable.next());
+            if (variablesFile.exists()) {
+                Scanner fileWithVariable = new Scanner(variablesFile);
+                while (fileWithVariable.hasNext()) {
+                    variable.put(fileWithVariable.next(), fileWithVariable.next());
+                }
+            } else {
+                if (!variablesFile.createNewFile())
+                    throw new Exception("file don't creat " + nameFile);
             }
-        }
-        catch (FileNotFoundException ex){
-            System.out.println("file is not found" + nameFile);
+        } catch (Exception ex) {
+            System.out.println(ex + "    file is not found" + nameFile);
             System.exit(0);
         }
     }
 
     /**
      * Set value for enviroment variable
-     * @param name name of new environment variable
+     *
+     * @param name  name of new environment variable
      * @param value value of new environment variable
      */
-    public void setVariable(String name, String value){
+    public void setVariable(String name, String value) {
         try {
             FileWriter file = new FileWriter(nameFile, true);
-            file.write(name + " " + value  + "\n");
+            file.write(name + " " + value + "\n");
             variable.put(name, value);
             file.close();
-        }
-        catch (IOException ex){
+        } catch (IOException ex) {
             System.out.println("file is not found " + nameFile);
         }
     }
 
     /**
      * get environment variable
+     *
      * @param name name environment variable
      */
-    public String getVariable(String name){
+    public String getVariable(String name) {
         return variable.get(name);
     }
-
 
     /**
      * Check variable exsistence by it's name
      */
-    public boolean hasVariable(String name){
+    public boolean hasVariable(String name) {
         return variable.containsKey(name);
     }
 
     /**
      * replaces all environment variables with their value
+     *
      * @param str name of environment variable
      */
-    public String preprocess(String str){
+    public String preprocess(String str) {
         String res = str;
         int idx = str.indexOf("$");
+        str = str.replace("$", "");
 
-        while(idx >= 0){
-           int idxNext = str.substring(idx).indexOf("/") + idx;
+        while (idx >= 0) {
+            int idxNext = str.substring(idx).indexOf("/") + idx;
             if (idxNext - idx < 0) {
                 idxNext = str.substring(idx).indexOf(" ") + idx;
-                if (idxNext - idx < 0 ) {
+                if (idxNext - idx < 0) {
                     idxNext = str.substring(idx).indexOf("\"") + idx;
                     if (idxNext - idx < 0) {
                         idxNext = str.length();
                     }
                 }
             }
-            str = str.substring(0, idx) + variable.get(str.substring(idx+1, idxNext)) + str.substring(idxNext);
+
+            str = str.substring(0, idx) + variable.get(str.substring(idx, idxNext)) + str.substring(idxNext);
             idx = str.indexOf("$");
             res = str;
         }
-
         return str;
     }
 }

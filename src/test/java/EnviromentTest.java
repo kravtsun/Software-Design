@@ -1,3 +1,5 @@
+import environment.Environment;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -6,14 +8,14 @@ import java.io.IOException;
 public class EnviromentTest {
 
     @Test
-    public void checkEnv() throws IOException{
+    public void checkEnv() throws IOException {
         Environment environment = new Environment();
 
         String str = "asdasd  \n " +
                 "sadkadskl  \n" +
                 "smdkff\n";
 
-        environment.setToFile(str);
+        environment.setState(str);
 
         Assert.assertEquals(str, environment.getEnvString());
 
@@ -21,7 +23,7 @@ public class EnviromentTest {
 
         str = "1234";
 
-        environment.setToFile(str);
+        environment.setState(str);
 
         Assert.assertEquals(str, environment.getEnvString());
     }

@@ -1,10 +1,12 @@
+import parser.PreProcess;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 public class PreProcessTest {
 
     @Test
-    public void setVariableTest(){
+    public void setVariableTest() {
         PreProcess preProcess = new PreProcess();
         preProcess.setVariable("test", "testValue");
 
@@ -13,7 +15,7 @@ public class PreProcessTest {
     }
 
     @Test
-    public void preprocesTestOne(){
+    public void preprocesTestOne() {
         PreProcess preProcess = new PreProcess();
         String value = "/home";
         preProcess.setVariable("HOME", value);
@@ -26,7 +28,7 @@ public class PreProcessTest {
 
 
     @Test
-    public void preprocessTestTwo(){
+    public void preprocessTestTwo() {
         PreProcess preProcess = new PreProcess();
         String value = "/home";
         preProcess.setVariable("HOME", value);
@@ -45,7 +47,7 @@ public class PreProcessTest {
     }
 
     @Test
-    public void preprocessTestFree(){
+    public void preprocessTestFree() {
         PreProcess preProcess = new PreProcess();
         String value = "/home";
         preProcess.setVariable("HOME", value);

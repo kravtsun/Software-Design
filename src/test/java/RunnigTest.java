@@ -1,3 +1,5 @@
+import parser.Parser;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,15 +11,15 @@ public class RunnigTest {
     private RunCommand runCommaner = new RunCommand();
 
     @Test
-    public void runPwd() throws Exception{
+    public void runPwd() throws Exception {
         String line = "   pwd  ";
         runCommaner.run(line);
     }
 
 
     @Test
-    public void  runCat() {
-        String fileName = "./src/main/resourse/EnvVariable.txt";
+    public void runCat() {
+        String fileName = "./README.md";
         try {
 
             String line = " cat  " + fileName;
@@ -27,35 +29,34 @@ public class RunnigTest {
             InputStream inputStream = new FileInputStream(file);
             int size = inputStream.available();
             String str = "";
-            for(int i = 0; i < size; i++) {
-                str += (char)inputStream.read();
+            for (int i = 0; i < size; i++) {
+                str += (char) inputStream.read();
             }
             inputStream.close();
 
             Assert.assertEquals(str, res);
-        }
-        catch (Exception ex){
-            System.out.println("file " + fileName +" not fount in dir " + System.getProperty("user.dir") );
+        } catch (Exception ex) {
+            System.out.println("file " + fileName + " not fount in dir " + System.getProperty("user.dir"));
             System.exit(0);
         }
     }
 
     @Test
-    public void runEcho() throws Exception{
-        String line  = "echo     pam_pam    djjdj    askkasd";
+    public void runEcho() throws Exception {
+        String line = "echo     pam_pam    djjdj    askkasd";
         String res = runCommaner.run(line);
 
-        Assert.assertEquals(Parser.removeDuplicSpaces(line.substring(5)), Parser.removeSpacesString(res));
+        Assert.assertEquals(Parser.removeDuplicateSpaces(line.substring(5)), Parser.removeSpacesString(res));
     }
 
     @Test
-    public void runWc() throws Exception{
+    public void runWc() throws Exception {
         String fileName = "./build.gradle";
         String line = "wc " + fileName;
 
 
         String res = runCommaner.run(line);
-        Assert.assertEquals("13 21 209  " + fileName, res);
+        Assert.assertEquals("13 21 209 " + fileName, res);
     }
 
 }
