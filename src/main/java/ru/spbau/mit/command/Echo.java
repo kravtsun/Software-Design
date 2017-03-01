@@ -16,7 +16,6 @@ public class Echo implements Command {
         lines = lines.replaceAll("[\"]", "");
         state.setState(lines);
         return state;
-
     }
 }
 
