@@ -1,7 +1,4 @@
-import environment.Environment;
-
-import org.junit.Assert;
-import org.junit.Test;
+import ru.spbau.mit.environment.Environment;
 
 import java.io.IOException;
 

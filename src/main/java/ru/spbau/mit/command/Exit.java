@@ -1,11 +1,11 @@
-package command;
+package ru.spbau.mit.command;
 
-import environment.Environment;
+import ru.spbau.mit.environment.Environment;
 
 /**
  * Exit command implementation
  */
-public class Exit extends Command {
+public class Exit implements Command {
     @Override
     public Environment run(Environment state, String[] args) throws Exception {
         System.exit(1);

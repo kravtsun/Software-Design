@@ -1,4 +1,4 @@
-package environment;
+package ru.spbau.mit.environment;
 
 /**
  * state of process
@@ -22,6 +22,16 @@ public class Environment {
      */
     public void setState(String str) {
         state = str;
+    }
+
+
+    /**
+     * add string to state
+     *
+     * @param str
+     */
+    public void addToState(String str) {
+        state += str;
     }
 
     /**

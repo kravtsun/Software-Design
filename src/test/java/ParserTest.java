@@ -1,7 +1,4 @@
-import parser.Parser;
-
-import org.junit.Assert;
-import org.junit.Test;
+import ru.spbau.mit.parser.Parser;
 
 public class ParserTest {
 

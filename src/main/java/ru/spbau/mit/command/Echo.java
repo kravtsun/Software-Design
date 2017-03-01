@@ -1,11 +1,11 @@
-package command;
+package ru.spbau.mit.command;
 
-import environment.Environment;
+import ru.spbau.mit.environment.Environment;
 
 /**
  * Echo command implementation
  */
-public class Echo extends Command {
+public class Echo implements Command {
 
     @Override
     public Environment run(Environment state, String[] args) throws Exception {
@@ -19,3 +19,4 @@ public class Echo extends Command {
 
     }
 }
+

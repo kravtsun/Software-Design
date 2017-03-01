@@ -1,7 +1,4 @@
-import parser.PreProcess;
-
-import org.junit.Assert;
-import org.junit.Test;
+import ru.spbau.mit.parser.PreProcess;
 
 public class PreProcessTest {
 

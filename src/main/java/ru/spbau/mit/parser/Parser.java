@@ -1,7 +1,10 @@
-package parser;
+package ru.spbau.mit.parser;
 
 import java.util.regex.Pattern;
 
+/**
+ * parse string: split and remove spaces
+ */
 public class Parser {
 
     /**
@@ -15,19 +18,20 @@ public class Parser {
     }
 
     /**
-     * Parses command name and it's arguments from string representation
+     * Parses ru.spbau.mit.command name and it's arguments from string representation
      *
-     * @param command string with command
-     * @return name command and it's arguments
+     * @param command string with ru.spbau.mit.command
+     * @return name ru.spbau.mit.command and it's arguments
      */
     public static String[] parseCommand(String command) {
-        return removeDuplicateSpaces(command).split(" ");
+        String[] commands = removeDuplicateSpaces(command).split(" ");
+        return removeSpacesFromArray(commands);
     }
 
     /**
      * Parses name and value for variable
      *
-     * @param command string with command
+     * @param command string with ru.spbau.mit.command
      * @return list of names with values
      */
     public static String[] parseEnvVariable(String command) {
@@ -41,7 +45,8 @@ public class Parser {
      * @return
      */
     public static boolean checkWeakQuoting(String command) {
-        return command.indexOf("'") >= 0 && command.lastIndexOf("'") > command.indexOf("'");
+        return command.indexOf("'") >= 0 && command.lastIndexOf("'") > command.indexOf("'") &&
+                command.indexOf("\"") < 0;
     }
 
     /**

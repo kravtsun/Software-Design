@@ -1,6 +1,6 @@
-package command;
+package ru.spbau.mit.command;
 
-import environment.Environment;
+import ru.spbau.mit.environment.Environment;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,9 +10,9 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
- * cat command implementation
+ * cat ru.spbau.mit.command implementation
  */
-public class Cat extends Command {
+public class Cat implements Command {
 
 
     @Override
@@ -24,7 +24,7 @@ public class Cat extends Command {
         for (String fileName : args) {
             try {
                 String str = readFile(fileName);
-                state.setState(str);
+                state.addToState(str);
             } catch (IOException ex) {
                 System.out.println("not found file " + fileName);
                 return null;
@@ -34,7 +34,8 @@ public class Cat extends Command {
     }
 
     /**
-     * Read a string from the console if you do not apply in command args
+     * Read a string from the console if you do not apply in ru.spbau.mit.command args
+     *
      * @param state state of process
      * @return final state of process
      */
@@ -54,22 +55,21 @@ public class Cat extends Command {
 
     /**
      * Reading file by name
+     *
      * @param fileName file name
      * @return had read string
      */
     private String readFile(String fileName) throws IOException {
         String str = "";
-        try {
-            File file = new File(fileName);
-            InputStream inputStream = new FileInputStream(file);
+        File file = new File(fileName);
+        try (InputStream inputStream = new FileInputStream(file)) {
             int size = inputStream.available();
             for (int i = 0; i < size; i++) {
                 str += (char) inputStream.read();
             }
             inputStream.close();
         } catch (IOException ex) {
-            System.out.println(ex + " read file " + fileName + " in cat command");
-            System.exit(1);
+            System.out.println(ex + " read file " + fileName + " in cat ru.spbau.mit.command");
         }
         return str;
     }

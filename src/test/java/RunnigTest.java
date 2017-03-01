@@ -1,14 +1,12 @@
-import parser.Parser;
-
-import org.junit.Assert;
-import org.junit.Test;
+import ru.spbau.mit.parser.Parser;
+import ru.spbau.mit.CommandInvoker;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
 public class RunnigTest {
-    private RunCommand runCommaner = new RunCommand();
+    private CommandInvoker runCommaner = new CommandInvoker();
 
     @Test
     public void runPwd() throws Exception {

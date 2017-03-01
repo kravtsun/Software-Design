@@ -1,11 +1,8 @@
-package parser;
+package ru.spbau.mit.parser;
 
-import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -15,7 +12,7 @@ import java.util.Scanner;
 public class PreProcess {
 
     /**
-     * table with environment variable
+     * table with ru.spbau.mit.environment variable
      */
     private HashMap<String, String> variable = new HashMap<>();
 
@@ -42,8 +39,8 @@ public class PreProcess {
     /**
      * Set value for enviroment variable
      *
-     * @param name  name of new environment variable
-     * @param value value of new environment variable
+     * @param name  name of new ru.spbau.mit.environment variable
+     * @param value value of new ru.spbau.mit.environment variable
      */
     public void setVariable(String name, String value) {
         try {
@@ -57,9 +54,9 @@ public class PreProcess {
     }
 
     /**
-     * get environment variable
+     * get ru.spbau.mit.environment variable
      *
-     * @param name name environment variable
+     * @param name name ru.spbau.mit.environment variable
      */
     public String getVariable(String name) {
         return variable.get(name);
@@ -73,12 +70,15 @@ public class PreProcess {
     }
 
     /**
-     * replaces all environment variables with their value
+     * replaces all ru.spbau.mit.environment variables with their value
      *
-     * @param str name of environment variable
+     * @param str name of ru.spbau.mit.environment variable
      */
     public String preprocess(String str) {
-        String res = str;
+        if (Parser.checkWeakQuoting(str)){
+            return str;
+        }
+
         int idx = str.indexOf("$");
         str = str.replace("$", "");
 
@@ -96,8 +96,8 @@ public class PreProcess {
 
             str = str.substring(0, idx) + variable.get(str.substring(idx, idxNext)) + str.substring(idxNext);
             idx = str.indexOf("$");
-            res = str;
         }
+        str = str.replaceAll("[\"]", "");
         return str;
     }
 }

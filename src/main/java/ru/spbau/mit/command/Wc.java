@@ -1,20 +1,20 @@
-package command;
+package ru.spbau.mit.command;
 
-import environment.Environment;
-import parser.Parser;
+import ru.spbau.mit.environment.Environment;
+import ru.spbau.mit.parser.Parser;
 
 import java.io.*;
 
 /**
  * Wc command implementation
  */
-public class Wc extends Command {
-
+public class Wc implements Command {
 
     @Override
     public Environment run(Environment state, String[] args) throws Exception {
         if (args.length == 0 && state.getEnvString() == "") {
-            throw new Exception("no filename in args");
+            System.out.println("no file in args");
+            return state;
         }
 
         if (args.length == 0 && state.getEnvString() != "") {
@@ -59,19 +59,16 @@ public class Wc extends Command {
         if (fileName.length() == 0) {
             return null;
         }
-        try {
-            LineNumberReader file = new LineNumberReader(new FileReader(fileName));
+        try (LineNumberReader file = new LineNumberReader(new FileReader(fileName))) {
             String line = file.readLine();
             while (line != null) {
                 lineCount += 1;
                 wordsCount += countNotEmptyWords(Parser.removeDuplicateSpaces(line).split(" "));
                 line = file.readLine();
             }
-
             file.close();
         } catch (Exception ex) {
             System.out.println(ex + " count read lines in file " + fileName);
-            System.exit(1);
         }
 
         bytes = getBytes(fileName);
@@ -103,14 +100,12 @@ public class Wc extends Command {
      */
     private long getBytes(String fileName) throws IOException {
         long bytes = 0;
-        try {
-            FileInputStream fileInputStream = new FileInputStream(new File(fileName));
+        try (FileInputStream fileInputStream = new FileInputStream(new File(fileName))) {
             bytes = fileInputStream.getChannel().size();
             fileInputStream.close();
 
         } catch (IOException ex) {
             System.out.println(ex + " get count bytes from file " + fileName);
-            System.exit(1);
         }
         return bytes;
     }
