@@ -75,12 +75,11 @@ public class PreProcess {
      * @param str name of environment variable
      */
     public String preprocess(String str) {
-        if (Parser.checkWeakQuoting(str)){
+        if (Parser.checkWeakQuoting(str)) {
             return str;
         }
 
         int idx = str.indexOf("$");
-        str = str.replace("$", "");
 
         while (idx >= 0) {
             int idxNext = str.substring(idx).indexOf("/") + idx;
@@ -93,8 +92,9 @@ public class PreProcess {
                     }
                 }
             }
-
+            idx += 1;
             str = str.substring(0, idx) + variable.get(str.substring(idx, idxNext)) + str.substring(idxNext);
+            str = str.replaceFirst("[$]", "");
             idx = str.indexOf("$");
         }
         str = str.replaceAll("[\"]", "");

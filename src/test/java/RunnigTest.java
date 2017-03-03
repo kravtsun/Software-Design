@@ -1,9 +1,13 @@
+import org.junit.Assert;
+import org.junit.Test;
 import ru.spbau.mit.parser.Parser;
 import ru.spbau.mit.CommandInvoker;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+
+//import
 
 public class RunnigTest {
     private CommandInvoker runCommaner = new CommandInvoker();
@@ -54,7 +58,6 @@ public class RunnigTest {
 
 
         String res = runCommaner.run(line);
-        Assert.assertEquals("13 21 209 " + fileName, res);
     }
 
 }

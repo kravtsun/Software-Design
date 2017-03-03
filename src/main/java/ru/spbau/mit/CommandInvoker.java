@@ -21,7 +21,7 @@ public class CommandInvoker {
      * @param nameCommand name command
      * @throws Exception command not found
      */
-    private Command chooseCommand(@NotNull String nameCommand) throws Exception {
+    private Command chooseCommand(String nameCommand) throws Exception {
         return CommandCreate.getCommand(nameCommand);
     }
 

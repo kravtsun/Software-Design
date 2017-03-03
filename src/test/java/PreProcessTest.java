@@ -1,3 +1,6 @@
+import org.junit.Assert;
+import org.junit.Test;
+import ru.spbau.mit.parser.Parser;
 import ru.spbau.mit.parser.PreProcess;
 
 public class PreProcessTest {
@@ -36,10 +39,10 @@ public class PreProcessTest {
         Assert.assertTrue(preProcess.hasVariable("NAME"));
 
 
-        String str = "cat $HOME/$NAME/value.txt";
+        String str = "cat \"$HOME/$NAME/value.txt\"";
         String result = preProcess.preprocess(str);
 
-        Assert.assertEquals("cat " + value + "/" + value2 + "/value.txt", result);
+        Assert.assertEquals("cat " + value + "/" + value2 + "/value.txt", Parser.removeSpacesString(result));
 
     }
 
