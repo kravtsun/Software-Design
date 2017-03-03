@@ -18,10 +18,10 @@ public class Parser {
     }
 
     /**
-     * Parses ru.spbau.mit.command name and it's arguments from string representation
+     * Parses command name and it's arguments from string representation
      *
-     * @param command string with ru.spbau.mit.command
-     * @return name ru.spbau.mit.command and it's arguments
+     * @param command string with command
+     * @return name command and it's arguments
      */
     public static String[] parseCommand(String command) {
         String[] commands = removeDuplicateSpaces(command).split(" ");
@@ -31,7 +31,7 @@ public class Parser {
     /**
      * Parses name and value for variable
      *
-     * @param command string with ru.spbau.mit.command
+     * @param command string with command
      * @return list of names with values
      */
     public static String[] parseEnvVariable(String command) {

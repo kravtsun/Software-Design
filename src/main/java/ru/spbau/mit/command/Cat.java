@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
- * cat ru.spbau.mit.command implementation
+ * cat command implementation
  */
 public class Cat implements Command {
 
@@ -34,7 +34,7 @@ public class Cat implements Command {
     }
 
     /**
-     * Read a string from the console if you do not apply in ru.spbau.mit.command args
+     * Read a string from the console if you do not apply in command args
      *
      * @param state state of process
      * @return final state of process
@@ -69,7 +69,7 @@ public class Cat implements Command {
             }
             inputStream.close();
         } catch (IOException ex) {
-            System.out.println(ex + " read file " + fileName + " in cat ru.spbau.mit.command");
+            System.out.println(ex + " read file " + fileName + " in cat command");
         }
         return str;
     }

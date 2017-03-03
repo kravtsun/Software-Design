@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class PreProcess {
 
     /**
-     * table with ru.spbau.mit.environment variable
+     * table with environment variable
      */
     private HashMap<String, String> variable = new HashMap<>();
 
@@ -39,8 +39,8 @@ public class PreProcess {
     /**
      * Set value for enviroment variable
      *
-     * @param name  name of new ru.spbau.mit.environment variable
-     * @param value value of new ru.spbau.mit.environment variable
+     * @param name  name of new environment variable
+     * @param value value of new environment variable
      */
     public void setVariable(String name, String value) {
         try {
@@ -54,9 +54,9 @@ public class PreProcess {
     }
 
     /**
-     * get ru.spbau.mit.environment variable
+     * get environment variable
      *
-     * @param name name ru.spbau.mit.environment variable
+     * @param name name environment variable
      */
     public String getVariable(String name) {
         return variable.get(name);
@@ -70,9 +70,9 @@ public class PreProcess {
     }
 
     /**
-     * replaces all ru.spbau.mit.environment variables with their value
+     * replaces all environment variables with their value
      *
-     * @param str name of ru.spbau.mit.environment variable
+     * @param str name of environment variable
      */
     public String preprocess(String str) {
         if (Parser.checkWeakQuoting(str)){

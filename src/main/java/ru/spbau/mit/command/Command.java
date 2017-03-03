@@ -8,10 +8,10 @@ import ru.spbau.mit.environment.Environment;
 public interface Command {
 
     /**
-     * Prototype for calling any ru.spbau.mit.command
+     * Prototype for calling any command
      *
      * @param state state of a process
-     * @param args  ru.spbau.mit.command args
+     * @param args  command args
      */
     public Environment run(Environment state, String[] args) throws Exception;
 }

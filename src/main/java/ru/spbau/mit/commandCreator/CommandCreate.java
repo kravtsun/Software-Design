@@ -10,9 +10,9 @@ public class CommandCreate {
     /**
      * Get command by name
      *
-     * @param nameCommand name ru.spbau.mit.command
-     * @return created ru.spbau.mit.command
-     * @throws Exception ru.spbau.mit.command name not found
+     * @param nameCommand name command
+     * @return created command
+     * @throws Exception command name not found
      */
     public static Command getCommand(String nameCommand) throws Exception {
         Command command;
@@ -44,5 +44,4 @@ public class CommandCreate {
         }
         return command;
     }
-
 }

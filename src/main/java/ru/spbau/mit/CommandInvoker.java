@@ -1,6 +1,5 @@
 package ru.spbau.mit;
 
-import com.sun.istack.internal.NotNull;
 import ru.spbau.mit.command.Command;
 import ru.spbau.mit.commandCreator.CommandCreate;
 import ru.spbau.mit.environment.Environment;
@@ -17,17 +16,17 @@ public class CommandInvoker {
     private PreProcess preProcessCommand = new PreProcess();
 
     /**
-     * Get ru.spbau.mit.command by name
+     * Get command by name
      *
-     * @param nameCommand name ru.spbau.mit.command
-     * @throws Exception ru.spbau.mit.command not found
+     * @param nameCommand name command
+     * @throws Exception command not found
      */
     private Command chooseCommand(@NotNull String nameCommand) throws Exception {
         return CommandCreate.getCommand(nameCommand);
     }
 
     /**
-     * Add ru.spbau.mit.environment variable to table
+     * Add environment variable to table
      *
      * @param name  variable name
      * @param value variable value
@@ -40,10 +39,10 @@ public class CommandInvoker {
     }
 
     /**
-     * Parse comman by "=" and set ru.spbau.mit.environment variable
+     * Parse comman by "=" and set environment variable
      *
-     * @param command ru.spbau.mit.command
-     * @return contains ru.spbau.mit.command "="
+     * @param command command
+     * @return contains command "="
      */
     private boolean setEnvironmentVariable(String command) {
         if (command.indexOf("=") >= 0) {
@@ -58,9 +57,9 @@ public class CommandInvoker {
     }
 
     /**
-     * Get line from IO, run parsing, check that ru.spbau.mit.command arguments are quoted.
-     * If full quoted term found, then replace all occurence of it by ru.spbau.mit.environment variable.
-     * Commands like NAME = VALUE finished by pushing (NAME, VALUE) into table with ru.spbau.mit.environment variables
+     * Get line from IO, run parsing, check that command arguments are quoted.
+     * If full quoted term found, then replace all occurence of it by environment variable.
+     * Commands like NAME = VALUE finished by pushing (NAME, VALUE) into table with environment variables
      *
      * @param str : line from IO
      * @return result of commands
@@ -82,7 +81,7 @@ public class CommandInvoker {
             String[] parseCommand = Parser.parseCommand(command);
 
             if (parseCommand.length == 0) {
-                System.out.println("not ru.spbau.mit.command name");
+                System.out.println("not command name");
                 return null;
             }
 
