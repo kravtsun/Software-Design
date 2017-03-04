@@ -38,6 +38,10 @@ public class CommandCreate {
                 command = new Exit();
                 break;
 
+            case "grep":
+                command = new Grep();
+                break;
+
             default:
                 NotFoundCommandNameException ex = new NotFoundCommandNameException();
                 return null;
