@@ -50,4 +50,20 @@ public class GrepTest {
         CommandInvoker commandInvoker = new CommandInvoker();
         commandInvoker.run(grep);
     }
+
+    @Test
+    public void checkGrepWithAFaild() throws Exception {
+        String grep = "grep -A plugin build.gradle";
+        System.out.println(grep);
+        CommandInvoker commandInvoker = new CommandInvoker();
+        commandInvoker.run(grep);
+    }
+
+    @Test
+    public void checkGrepWithASucc() throws Exception {
+        String grep = "grep -A 3 plugin build.gradle";
+        System.out.println(grep);
+        CommandInvoker commandInvoker = new CommandInvoker();
+        commandInvoker.run(grep);
+    }
 }

@@ -39,6 +39,10 @@ public class Grep implements Command {
             String[] argsFromArgParser = argsParser.getArgs();
 
             matches = findPatternInFiles(argsFromArgParser);
+            if (matches == null) {
+                System.out.println("command is not correct");
+                return state;
+            }
         }
 
         state.removeEnv();
