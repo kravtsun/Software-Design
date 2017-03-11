@@ -1,5 +1,6 @@
-package ru.spbau.mit.command;
+package ru.spbau.mit.command.exit;
 
+import ru.spbau.mit.command.Command;
 import ru.spbau.mit.environment.Environment;
 
 /**

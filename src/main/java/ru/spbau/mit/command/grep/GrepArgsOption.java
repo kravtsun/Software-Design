@@ -1,14 +1,14 @@
-package spbau.mit.parser;
+package ru.spbau.mit.command.grep;
 
 import org.apache.commons.cli.Options;
 
 /**
- * Any command arguments
+ * Grep command arguments
  */
-public class ArgsOption {
+public class GrepArgsOption {
 
     /**
-     * Any command arguments
+     * Grep command arguments
      */
     public static Options options = new Options()
             .addOption("i", "ignore-case", false, "Invert the sense of matching, to select non-matching lines")

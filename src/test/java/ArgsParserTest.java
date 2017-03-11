@@ -1,11 +1,12 @@
 import org.junit.Assert;
 import org.junit.Test;
+import ru.spbau.mit.command.grep.GrepArgsOption;
 import ru.spbau.mit.parser.ArgsParser;
 import ru.spbau.mit.parser.Parser;
 
 public class ArgsParserTest {
 
-    private ArgsParser argsParser = new ArgsParser();
+    private ArgsParser argsParser = new ArgsParser(GrepArgsOption.options);
 
     @Test
     public void checkArgsWithIWA() {

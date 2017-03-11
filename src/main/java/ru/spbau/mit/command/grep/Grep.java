@@ -1,5 +1,6 @@
-package ru.spbau.mit.command;
+package ru.spbau.mit.command.grep;
 
+import ru.spbau.mit.command.Command;
 import ru.spbau.mit.environment.Environment;
 import ru.spbau.mit.parser.ArgsParser;
 
@@ -16,7 +17,7 @@ import java.util.regex.Pattern;
  */
 public class Grep implements Command {
 
-    private ArgsParser argsParser = new ArgsParser();
+    private ArgsParser argsParser = new ArgsParser(GrepArgsOption.options);
 
     @Override
     public Environment run(Environment state, String[] args) throws Exception {
@@ -68,8 +69,6 @@ public class Grep implements Command {
             }
         }
         return matchesAllFiles;
-
-
     }
 
     /**
@@ -91,7 +90,7 @@ public class Grep implements Command {
         for (int i = 0; i < linesArray.length; i++) {
             if (checkPattern(pattern, linesArray[i])) {
                 linesWithPattern.add(linesArray[i] + "\n");
-                i = i + 1;
+                i++;
                 for (int j = 0; j < countSaveLines && i < linesArray.length; j++, i++) {
                     linesWithPattern.add(linesArray[i] + "\n");
                 }

@@ -1,17 +1,19 @@
 package ru.spbau.mit.parser;
 
-import org.apache.commons.cli.BasicParser;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-import spbau.mit.parser.ArgsOption;
+import org.apache.commons.cli.*;
 
 /**
  * Parse command args
  */
-public class ArgsParser extends BasicParser {
+public class ArgsParser {
 
+    private CommandLineParser commandLineParser = new DefaultParser();
     private CommandLine commandLine;
+    private Options options;
+
+    public ArgsParser(Options options) {
+        this.options = options;
+    }
 
     /**
      * Set array with command arguments
@@ -20,17 +22,17 @@ public class ArgsParser extends BasicParser {
      */
     public void setArgs(String[] args) {
         try {
-            commandLine = this.parse(ArgsOption.options, args);
+            commandLine = commandLineParser.parse(options, args);
         } catch (ParseException ex) {
             System.out.println("parse failed " + ex);
         }
     }
 
     /**
-     * Сheck what exist argments with name
+     * Checking the existence of argument with name
      *
      * @param nameArg argument name
-     * @return true or fasle
+     * @return true if argument with name exists, otherwise false
      */
     public boolean checkArg(String nameArg) {
         if (commandLine != null && commandLine.getOptions().length != 0) {
@@ -61,15 +63,4 @@ public class ArgsParser extends BasicParser {
         return commandLine.getArgs();
     }
 
-    @Override
-    /**
-     * flatten the options and arguments string
-     * @param arg0 options
-     * @param arg1 argument string
-     * @param arg2 boolean flag
-     * @return string array of flattened arguments
-     */
-    protected String[] flatten(Options arg0, String[] arg1, boolean arg2) {
-        return super.flatten(arg0, arg1, arg2);
-    }
 }
