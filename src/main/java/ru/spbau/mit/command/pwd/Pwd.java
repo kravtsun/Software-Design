@@ -1,5 +1,6 @@
-package ru.spbau.mit.command;
+package ru.spbau.mit.command.pwd;
 
+import ru.spbau.mit.command.Command;
 import ru.spbau.mit.environment.Environment;
 
 import java.lang.Exception;

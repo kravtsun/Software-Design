@@ -1,5 +1,6 @@
-package ru.spbau.mit.command;
+package ru.spbau.mit.command.wc;
 
+import ru.spbau.mit.command.Command;
 import ru.spbau.mit.environment.Environment;
 import ru.spbau.mit.parser.Parser;
 

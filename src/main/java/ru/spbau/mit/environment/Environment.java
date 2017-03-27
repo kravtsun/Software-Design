@@ -1,5 +1,9 @@
 package ru.spbau.mit.environment;
 
+import com.sun.istack.internal.NotNull;
+
+import java.util.List;
+
 /**
  * state of process
  */
@@ -32,6 +36,13 @@ public class Environment {
      */
     public void addToState(String str) {
         state += str;
+    }
+
+
+    public void addArrayToState(@NotNull List<String> array) {
+        for (String str : array) {
+            addToState(str);
+        }
     }
 
     /**

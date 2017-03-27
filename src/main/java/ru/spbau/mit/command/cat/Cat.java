@@ -1,5 +1,6 @@
-package ru.spbau.mit.command;
+package ru.spbau.mit.command.cat;
 
+import ru.spbau.mit.command.Command;
 import ru.spbau.mit.environment.Environment;
 
 import java.io.File;
@@ -13,7 +14,6 @@ import java.util.Scanner;
  * cat command implementation
  */
 public class Cat implements Command {
-
 
     @Override
     public Environment run(Environment state, String[] args) throws Exception {

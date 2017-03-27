@@ -1,6 +1,12 @@
 package ru.spbau.mit.commandCreator;
 
 import ru.spbau.mit.command.*;
+import ru.spbau.mit.command.echo.Echo;
+import ru.spbau.mit.command.exit.Exit;
+import ru.spbau.mit.command.cat.Cat;
+import ru.spbau.mit.command.grep.Grep;
+import ru.spbau.mit.command.pwd.Pwd;
+import ru.spbau.mit.command.wc.Wc;
 
 /**
  * Choose command by command name
@@ -36,6 +42,10 @@ public class CommandCreate {
 
             case "exit":
                 command = new Exit();
+                break;
+
+            case "grep":
+                command = new Grep();
                 break;
 
             default:
