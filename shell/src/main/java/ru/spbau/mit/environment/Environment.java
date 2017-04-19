@@ -1,7 +1,5 @@
 package ru.spbau.mit.environment;
 
-import com.sun.istack.internal.NotNull;
-
 import java.util.List;
 
 /**
@@ -39,7 +37,7 @@ public class Environment {
     }
 
 
-    public void addArrayToState(@NotNull List<String> array) {
+    public void addArrayToState(List<String> array) {
         for (String str : array) {
             addToState(str);
         }
