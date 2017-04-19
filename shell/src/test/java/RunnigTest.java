@@ -59,10 +59,34 @@ public class RunnigTest {
     }
 
     @Test
-    public void runLs() throws Exception {
+    public void runCd() throws Exception {
+        String currentDir = runCommaner.run("pwd");
+        String parentDir = currentDir.substring(0, currentDir.lastIndexOf('/'));
         String dirName = "../";
-        String line = "ls " + dirName;
+        String line = "cd " + dirName;
         String res = runCommaner.run(line);
+        Assert.assertEquals(res, "");
+        String newCurrentDir = runCommaner.run("pwd");
+        Assert.assertEquals(parentDir, newCurrentDir);
+    }
+
+    @Test
+    public void runLs() throws Exception {
+        String currentDir = runCommaner.run("pwd");
+        String currentDirResult = runCommaner.run("ls " + currentDir);
+        String emptyDirResult = runCommaner.run("ls ");
+        Assert.assertEquals(currentDirResult, emptyDirResult);
+        String startDirResult = runCommaner.run("ls *");
+        Assert.assertEquals(currentDirResult, startDirResult);
+
+        String srcResult = runCommaner.run("ls src/");
+        Assert.assertEquals(srcResult, "test/\nmain/");
+        String srcSlashlessResult = runCommaner.run("ls src");
+        Assert.assertEquals(srcResult, srcSlashlessResult);
+
+        String dummyFile = "123-8as;;sfwesadf";
+        String dummyFileResult = runCommaner.run("ls " + dummyFile);
+        Assert.assertEquals(dummyFileResult, "");
     }
 
 }

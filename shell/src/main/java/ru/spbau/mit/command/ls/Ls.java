@@ -53,6 +53,9 @@ public class Ls implements Command {
         URI dirURI = dir.toURI();
         for (File f : files) {
             String filePath = dirURI.relativize(f.toURI()).getPath();
+            if (f.isDirectory() && filePath.charAt(filePath.length() - 1) != File.separatorChar) {
+                filePath += File.separatorChar;
+            }
             fileList.add(filePath);
         }
         return String.join(DELIMITER, fileList);
