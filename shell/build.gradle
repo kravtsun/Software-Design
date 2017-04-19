@@ -3,6 +3,13 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 
+apply plugin: 'checkstyle'
+
+checkstyle {
+    configFile = file("${project.rootDir}/config/checkstyle/checkstyle.xml")
+    toolVersion = '6.7'
+}
+
 sourceCompatibility = 1.8
 repositories {
     mavenCentral()
