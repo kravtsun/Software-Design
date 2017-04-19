@@ -55,8 +55,13 @@ public class RunnigTest {
     public void runWc() throws Exception {
         String fileName = "./build.gradle";
         String line = "wc " + fileName;
+        String res = runCommaner.run(line);
+    }
 
-
+    @Test
+    public void runLs() throws Exception {
+        String dirName = "../";
+        String line = "ls " + dirName;
         String res = runCommaner.run(line);
     }
 

@@ -7,6 +7,7 @@ import ru.spbau.mit.command.cat.Cat;
 import ru.spbau.mit.command.grep.Grep;
 import ru.spbau.mit.command.pwd.Pwd;
 import ru.spbau.mit.command.wc.Wc;
+import ru.spbau.mit.command.ls.Ls;
 
 /**
  * Choose command by command name
@@ -46,6 +47,10 @@ public class CommandCreate {
 
             case "grep":
                 command = new Grep();
+                break;
+
+            case "ls":
+                command = new Ls();
                 break;
 
             default:
