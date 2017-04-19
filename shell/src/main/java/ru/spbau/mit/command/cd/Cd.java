@@ -5,6 +5,9 @@ import ru.spbau.mit.environment.Environment;
 
 import java.io.File;
 
+/**
+ * cd command implementation
+ */
 public class Cd implements Command {
     private static final String PWD_PROPERTY = "user.dir";
     private static final String HOME_PROPERTY = "user.home";

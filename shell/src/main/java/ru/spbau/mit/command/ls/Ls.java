@@ -12,7 +12,7 @@ import java.net.URI;
 import java.util.ArrayList;
 
 /**
- * Ls command implementation
+ * ls command implementation
  */
 public class Ls implements Command {
     private static final String DELIMITER = "\n";
@@ -33,6 +33,11 @@ public class Ls implements Command {
         return state;
     }
 
+    /**
+     *
+     * @return current working directory.
+     * @throws Exception
+     */
     private static String currentDir() throws Exception {
         Pwd pwdCommand = new Pwd();
         Environment pwdState = new Environment();
@@ -40,6 +45,13 @@ public class Ls implements Command {
         return pwdCommand.run(pwdState, pwdArgs).getEnvString();
     }
 
+    /**
+     *
+     * @param dir directory in which to search for files.
+     * @param pattern hard pattern (without wildcards) for files.
+     * @return list of files, concatenated into one line for output.
+     * @throws IOException
+     */
     private static String lsForPattern(File dir, String pattern) throws IOException {
         ArrayList<String> fileList = new ArrayList<>();
         File patternFile = new File(pattern);
