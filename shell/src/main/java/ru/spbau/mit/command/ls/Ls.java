@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -51,22 +52,24 @@ public class Ls implements Command {
      * @return list of files, concatenated into one line for output.
      */
     private static String lsForPattern(File dir, String pattern) {
-        ArrayList<String> fileList = new ArrayList<>();
         File patternFile = new File(pattern);
         if (patternFile.isDirectory()) {
             dir = patternFile;
             pattern = "*";
         }
 
+        ArrayList<String> fileList = new ArrayList<>();
         FileFilter filter = new WildcardFileFilter(pattern);
         File[] files = dir.listFiles(filter);
         URI dirURI = dir.toURI();
-        for (File f : files) {
-            String filePath = dirURI.relativize(f.toURI()).getPath();
-            if (f.isDirectory() && filePath.charAt(filePath.length() - 1) != File.separatorChar) {
-                filePath += File.separatorChar;
+        if (!Objects.isNull(files)) {
+            for (File f : files) {
+                String filePath = dirURI.relativize(f.toURI()).getPath();
+                if (f.isDirectory() && filePath.charAt(filePath.length() - 1) != '/') {
+                    filePath += "/";
+                }
+                fileList.add(filePath);
             }
-            fileList.add(filePath);
         }
 
         return fileList.stream().sorted().collect(Collectors.joining(DELIMITER));
