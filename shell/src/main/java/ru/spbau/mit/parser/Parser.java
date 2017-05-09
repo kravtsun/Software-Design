@@ -5,7 +5,10 @@ import java.util.regex.Pattern;
 /**
  * parse string: split and remove spaces
  */
-public class Parser {
+public final class Parser {
+    private Parser() {
+
+    }
 
     /**
      * Get list of commands from input string
@@ -45,8 +48,8 @@ public class Parser {
      * @return
      */
     public static boolean checkWeakQuoting(String command) {
-        return command.indexOf("'") >= 0 && command.lastIndexOf("'") > command.indexOf("'") &&
-                command.indexOf("\"") < 0;
+        return command.indexOf("'") >= 0 && command.lastIndexOf("'") > command.indexOf("'")
+                && command.indexOf("\"") < 0;
     }
 
     /**

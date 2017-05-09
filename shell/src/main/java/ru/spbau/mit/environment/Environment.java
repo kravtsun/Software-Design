@@ -1,7 +1,6 @@
 package ru.spbau.mit.environment;
 
-import com.sun.istack.internal.NotNull;
-
+import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 /**

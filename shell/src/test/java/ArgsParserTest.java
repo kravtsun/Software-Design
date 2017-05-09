@@ -6,7 +6,7 @@ import ru.spbau.mit.parser.Parser;
 
 public class ArgsParserTest {
 
-    private ArgsParser argsParser = new ArgsParser(GrepArgsOption.options);
+    private ArgsParser argsParser = new ArgsParser(GrepArgsOption.getOptions());
 
     @Test
     public void checkArgsWithIWA() {

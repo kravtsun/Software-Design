@@ -6,7 +6,11 @@ import java.util.Scanner;
 /**
  * Main class for start
  */
-public class Shell {
+public final class Shell {
+
+    private Shell() {
+
+    }
 
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in).useDelimiter("\n");

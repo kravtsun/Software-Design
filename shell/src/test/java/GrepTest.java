@@ -4,7 +4,7 @@ import ru.spbau.mit.CommandInvoker;
 public class GrepTest {
 
     @Test
-    public void checkGrep() throws Exception{
+    public void checkGrep() throws Exception {
         String grep = "grep plugin ./build.gradle";
         System.out.println(grep);
         CommandInvoker commandInvoker = new CommandInvoker();
