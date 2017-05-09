@@ -7,9 +7,9 @@ import ru.spbau.mit.command.pwd.Pwd;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * ls command implementation
@@ -18,7 +18,7 @@ public class Ls implements Command {
     private static final String DELIMITER = "\n";
 
     @Override
-    public Environment run(Environment state, String[] args) throws Exception {
+    public Environment run(Environment state, String[] args) {
         File dir = new File(currentDir());
         ArrayList<String> lsResult = new ArrayList<>();
         if (args.length > 0) {
@@ -36,9 +36,8 @@ public class Ls implements Command {
     /**
      *
      * @return current working directory.
-     * @throws Exception
      */
-    private static String currentDir() throws Exception {
+    private static String currentDir() {
         Pwd pwdCommand = new Pwd();
         Environment pwdState = new Environment();
         String[] pwdArgs = null;
@@ -50,9 +49,8 @@ public class Ls implements Command {
      * @param dir directory in which to search for files.
      * @param pattern hard pattern (without wildcards) for files.
      * @return list of files, concatenated into one line for output.
-     * @throws IOException
      */
-    private static String lsForPattern(File dir, String pattern) throws IOException {
+    private static String lsForPattern(File dir, String pattern) {
         ArrayList<String> fileList = new ArrayList<>();
         File patternFile = new File(pattern);
         if (patternFile.isDirectory()) {
@@ -70,6 +68,7 @@ public class Ls implements Command {
             }
             fileList.add(filePath);
         }
-        return String.join(DELIMITER, fileList);
+
+        return fileList.stream().sorted().collect(Collectors.joining(DELIMITER));
     }
 }

@@ -19,7 +19,7 @@ public class Cd implements Command {
             newDir = args[0];
         }
         File newDirFile = new File(newDir);
-        if (newDirFile == null || !newDirFile.isDirectory() ) {
+        if (newDirFile == null || !newDirFile.isDirectory()) {
             System.out.println("not found directory " + newDir);
         } else {
             String newDirPath = newDirFile.getCanonicalPath();

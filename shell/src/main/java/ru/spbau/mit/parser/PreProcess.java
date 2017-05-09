@@ -16,10 +16,10 @@ public class PreProcess {
      */
     private HashMap<String, String> variable = new HashMap<>();
 
-    private static final String nameFile = "./EnvVariable.txt";
+    private static final String NAME_FILE = "./EnvVariable.txt";
 
     public PreProcess() {
-        File variablesFile = new File(nameFile);
+        File variablesFile = new File(NAME_FILE);
         try {
             if (variablesFile.exists()) {
                 Scanner fileWithVariable = new Scanner(variablesFile);
@@ -27,11 +27,12 @@ public class PreProcess {
                     variable.put(fileWithVariable.next(), fileWithVariable.next());
                 }
             } else {
-                if (!variablesFile.createNewFile())
-                    throw new Exception("file don't creat " + nameFile);
+                if (!variablesFile.createNewFile()) {
+                    throw new Exception("file don't creat " + NAME_FILE);
+                }
             }
         } catch (Exception ex) {
-            System.out.println(ex + "    file is not found" + nameFile);
+            System.out.println(ex + "    file is not found" + NAME_FILE);
             System.exit(0);
         }
     }
@@ -44,12 +45,12 @@ public class PreProcess {
      */
     public void setVariable(String name, String value) {
         try {
-            FileWriter file = new FileWriter(nameFile, true);
+            FileWriter file = new FileWriter(NAME_FILE, true);
             file.write(name + " " + value + "\n");
             variable.put(name, value);
             file.close();
         } catch (IOException ex) {
-            System.out.println("file is not found " + nameFile);
+            System.out.println("file is not found " + NAME_FILE);
         }
     }
 

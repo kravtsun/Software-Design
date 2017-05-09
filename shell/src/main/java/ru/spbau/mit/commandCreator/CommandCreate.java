@@ -13,7 +13,11 @@ import ru.spbau.mit.command.cd.Cd;
 /**
  * Choose command by command name
  */
-public class CommandCreate {
+public final class CommandCreate {
+
+    private CommandCreate() {
+
+    }
 
     /**
      * Get command by name

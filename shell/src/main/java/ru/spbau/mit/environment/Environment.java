@@ -1,5 +1,6 @@
 package ru.spbau.mit.environment;
 
+import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 /**
@@ -37,7 +38,7 @@ public class Environment {
     }
 
 
-    public void addArrayToState(List<String> array) {
+    public void addArrayToState(@NotNull List<String> array) {
         for (String str : array) {
             addToState(str);
         }

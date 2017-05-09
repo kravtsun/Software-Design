@@ -17,11 +17,10 @@ import java.util.regex.Pattern;
  */
 public class Grep implements Command {
 
-    private ArgsParser argsParser = new ArgsParser(GrepArgsOption.options);
+    private ArgsParser argsParser = new ArgsParser(GrepArgsOption.getOptions());
 
     @Override
     public Environment run(Environment state, String[] args) throws Exception {
-
         if (args.length == 0 && state.getEnvString() == "") {
             System.out.println("file and pattern for grep command not found");
             return state;

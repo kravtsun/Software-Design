@@ -10,9 +10,9 @@ public class EnviromentTest {
     public void checkEnv() throws IOException {
         Environment environment = new Environment();
 
-        String str = "asdasd  \n " +
-                "sadkadskl  \n" +
-                "smdkff\n";
+        String str = "asdasd  \n "
+                + "sadkadskl  \n"
+                + "smdkff\n";
 
         environment.setState(str);
 

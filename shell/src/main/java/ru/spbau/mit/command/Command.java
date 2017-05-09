@@ -13,6 +13,6 @@ public interface Command {
      * @param state state of a process
      * @param args  command args
      */
-    public Environment run(Environment state, String[] args) throws Exception;
+    Environment run(Environment state, String[] args) throws Exception;
 }
 

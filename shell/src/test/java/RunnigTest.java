@@ -6,6 +6,9 @@ import ru.spbau.mit.CommandInvoker;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+import org.hamcrest.Matchers;
 
 //import
 
@@ -61,11 +64,11 @@ public class RunnigTest {
     @Test
     public void runCd() throws Exception {
         String currentDir = runCommaner.run("pwd");
-        String parentDir = currentDir.substring(0, currentDir.lastIndexOf('/'));
-        String dirName = "../";
+        String parentDir = currentDir.substring(0, currentDir.lastIndexOf(File.separatorChar));
+        String dirName = "..";
         String line = "cd " + dirName;
         String res = runCommaner.run(line);
-        Assert.assertEquals(res, "");
+        Assert.assertThat(res, Matchers.emptyString());
         String newCurrentDir = runCommaner.run("pwd");
         Assert.assertEquals(parentDir, newCurrentDir);
     }
@@ -74,19 +77,23 @@ public class RunnigTest {
     public void runLs() throws Exception {
         String currentDir = runCommaner.run("pwd");
         String currentDirResult = runCommaner.run("ls " + currentDir);
-        String emptyDirResult = runCommaner.run("ls ");
+        String emptyDirResult = runCommaner.run("ls");
         Assert.assertEquals(currentDirResult, emptyDirResult);
         String startDirResult = runCommaner.run("ls *");
         Assert.assertEquals(currentDirResult, startDirResult);
 
-        String srcResult = runCommaner.run("ls src/");
-        Assert.assertEquals(srcResult, "test/\nmain/");
+        String srcResult = runCommaner.run("ls src" + File.separatorChar);
+        String expectedResult = Arrays.asList("test", "main").stream()
+                .sorted()
+                .map((s) -> s + File.separatorChar)
+                .collect(Collectors.joining("\n"));
+        Assert.assertEquals(expectedResult, srcResult);
         String srcSlashlessResult = runCommaner.run("ls src");
-        Assert.assertEquals(srcResult, srcSlashlessResult);
+        Assert.assertEquals(expectedResult, srcSlashlessResult);
 
         String dummyFile = "123-8as;;sfwesadf";
         String dummyFileResult = runCommaner.run("ls " + dummyFile);
-        Assert.assertEquals(dummyFileResult, "");
+        Assert.assertThat(dummyFileResult, Matchers.emptyString());
     }
 
 }
